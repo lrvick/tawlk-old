@@ -1,0 +1,135 @@
+* {
+  font-family:sans-serif;
+  margin:0;
+  padding:0;
+}
+html {
+  display:block;
+  width:100%;
+  height:100%;
+}
+body{
+  background:#111;
+  display:block;
+  width:100%;
+  height:100%;
+}
+a {
+  color:#FFF;
+  font-weight:400;
+  text-decoration:none;
+}
+div.Twrapper{
+  width:100%;
+  height:6%;
+  overflow:hidden;
+}
+div.Twrapper header {
+  display:block;
+  height:100%;
+  width:100%;
+  margin:0px auto;
+  background:#222;
+  font-size:3em;
+  overflow:hidden;
+}
+div.Twrapper header h1 {
+  margin-left:10px;
+  display:inline-block;
+  font-size:1em;
+  line-height:100%;
+}
+div.Twrapper header nav{
+  display:inline-block;
+}
+div.Bwrapper {
+  display:table;
+  width:100%;
+  height:94%;
+  table-layout:fixed;
+  border-spacing:.5em;
+}
+div.BLwrapper,
+div.BMwrapper,
+div.BRwrapper {
+  display:table-cell;
+  height:100%;
+}
+div.Bwrapper div.microblogs {
+  background:#222;
+  height:100%;
+  overflow:auto;
+  border-radius:15px;
+}
+div.Bwrapper div.videos,
+div.Bwrapper div.www-top,
+div.Bwrapper div.www-latest,
+div.Bwrapper div.pictures {
+  background:#222;
+  height:49.5%;
+  overflow:auto;
+  border-radius:15px;
+}
+div.Bwrapper div.videos,
+div.Bwrapper div.pictures {
+margin-bottom:2%;
+}
+
+
+div ul{
+  list-style-type:none;
+  display:block;
+  padding-top:10px;
+  width:98%;
+}
+div ul li {
+  background:#444;
+  margin:5px;
+  margin-left:10px;
+  line-height:35px; 
+  text-indent:10px;
+  font-size:1.1em;
+}
+div ul li span{
+  width:45px;
+  text-align:center;
+  display:inline-block;
+  float:right;
+  color:#AAA;
+  background:#111;
+}
+div.videos ul li{
+  width:45%;
+  height:90px;
+  display:inline-block;
+}
+div.pictures ul li{
+  width:27%;
+  height:90px;
+  margin-right:5px;
+  display:inline-block;
+}
+
+div::-webkit-scrollbar {
+  margin:10px;
+  width: 16px;
+  height: 16px;
+  background:#444;
+  -webkit-border-radius:15px;
+}
+div::-webkit-scrollbar-thumb {
+  -webkit-border-radius:15px;
+  background: #666;
+}
+div::-webkit-scrollbar-corner {
+  display: none;
+}
+div::-webkit-scrollbar-button:disabled {
+  display:none;
+}
+div::-webkit-scrollbar:horizontal {
+  display:none;
+}
+div::-webkit-scrollbar-thumb:horizontal {
+  display:none;
+}

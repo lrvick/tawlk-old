@@ -1,0 +1,3 @@
+[submodule "kral"]
+	path = kral
+	url = git://github.com/UdderWeb/kral.git

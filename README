@@ -1,0 +1,26 @@
+ Kral < http://github.com/UdderWeb/kral >
+
+WHAT IS KRAL?
+	A social media crawling engine, built on Django. 
+    Aims to provide a framework for rapidly collect data from social networks
+    based on defined search criteria. Built to be a foundation for a wide 
+    range of social applications, and to bring accountability  and public 
+    to the way in which data is collected and promote others to get involved
+    to help us collect as much data as possible with the fewest resources.
+
+CURRENT FEATURES:
+
+ * Ability to harvest user information, and posts from Twitter and 
+
+ * Ability to expand all short-urls into full real URLs.
+
+ * Modular design. Easily add or disable "kraling" for different social networks.
+
+NOTES
+
+  Many more features coming soon as this project is under active development.
+
+	This is by no means production-ready code. Do not actually use it in
+	production unless you wish to be eaten by a grue.
+
+	Questions/Comments? Please check us out on IRC via irc://udderweb.com/#uw
