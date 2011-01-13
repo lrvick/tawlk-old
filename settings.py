@@ -78,7 +78,12 @@ BROKER_PASSWORD = "guest"
 
 CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
 
+ORBITED_SERVER = "localhost"
+ORBITED_PORT = "9000"
+ORBITED_STOMP_PORT = "61613"
+
 #Load installation specific settings/passwords from external file with restrictive permissions
 execfile(os.path.join(PROJECT_PATH,'.private-settings'))
+
 
 # vim: ai ts=4 sts=4 et sw=4

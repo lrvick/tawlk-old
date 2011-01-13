@@ -3,6 +3,38 @@
   <head> 
     <title>Kral.it GUI Preview</title> 
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/default.css"> 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/Orbited.js"></script>
+    <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/protocols/stomp/stomp.js"></script>
+    <script>
+        document.domain = document.domain;
+        Orbited.settings.port = {{ orbited_port }};
+        Orbited.settings.hostname = document.domain;
+        TCPSocket = Orbited.TCPSocket
+        function add_message(msg) {
+            $("<li>" + msg["time"] + " | " + msg["user"] + " : " + msg["message"] + "</li>").prependTo("#microblogs ul");
+            $('#microblogs li:last_child', this).remove();
+        };
+        $(document).ready(function() {
+            stomp = new STOMPClient();
+            stomp.onerror = function(error) {
+                alert("Error:" + error);
+            };
+            stomp.onclose = function(c) {
+                alert("Lost connection, Code:" + c);
+            };
+            stomp.onconnectedframe = function(){
+                try { console.log('Connected. Subscribing'); } catch (e) {console = {log: function () {}};}
+                stomp.subscribe("/messages");
+            };
+            stomp.onmessageframe = function(frame){
+                add_message(JSON.parse(frame.body));
+            };
+            setTimeout(function () {
+                stomp.connect('localhost', {{ orbited_stomp_port }});
+            }, 500);
+        });
+    </script>
   </head> 
   <body> 
     <div class="Twrapper"> 
@@ -19,7 +51,7 @@
     </div> 
     <div class="Bwrapper"> 
       <div class="BLwrapper"> 
-        <div class="microblogs"> 
+        <div id="microblogs"> 
           <ul> 
             <li><a href="#link">Facebook post</a></li> 
             <li><a href="#link">Twitter Tweet</a></li> 

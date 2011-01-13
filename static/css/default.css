@@ -55,7 +55,7 @@ div.BRwrapper {
   display:table-cell;
   height:100%;
 }
-div.Bwrapper div.microblogs {
+div.Bwrapper div#microblogs {
   background:#222;
   height:100%;
   overflow:auto;

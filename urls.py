@@ -1,11 +1,14 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-
-import os.path
+import os
 
 
 urlpatterns = patterns('',
-  (r'^$', 'django.views.generic.simple.direct_to_template', {'template':'main.html'}),
+  (r'^$', 'django.views.generic.simple.direct_to_template', {'template':'index.html', 'extra_context': {  
+        "orbited_server": settings.ORBITED_SERVER,
+        "orbited_port": settings.ORBITED_PORT,
+        "orbited_stomp_port": settings.ORBITED_STOMP_PORT,
+    }}),
   (r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': os.path.join(os.path.dirname(__file__), 'static')}),
 )
 
