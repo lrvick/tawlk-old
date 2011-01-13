@@ -61,6 +61,10 @@ div.Bwrapper div#microblogs {
   overflow:auto;
   border-radius:15px;
 }
+div.Bwrapper div#microblogs img{
+    width:48px;
+    height:48px;
+}
 div.Bwrapper div.videos,
 div.Bwrapper div.www-top,
 div.Bwrapper div.www-latest,

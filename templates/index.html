@@ -12,8 +12,8 @@
         Orbited.settings.hostname = document.domain;
         TCPSocket = Orbited.TCPSocket
         function add_message(msg) {
-            $("<li>" + msg["time"] + " | " + msg["user"] + " : " + msg["message"] + "</li>").prependTo("#microblogs ul");
-            $('#microblogs li:last_child', this).remove();
+            $("<li class=\"" + msg["service"] + "\"><img src=\"" + msg["picture"] + "\"/>" + msg["date"] + " | " + msg["user"] + " : " + msg["message"] + "</li>").prependTo("#microblogs ul");
+            $('#microblogs li:last').remove();
         };
         $(document).ready(function() {
             stomp = new STOMPClient();
