@@ -2,28 +2,7 @@
 
 A sample social media search engine, using Kral at its core.
 
-
-## Starting Kral ##
-
-In order to start collecting data with Kral, you just need to run celery, and celery will do the rest. 
-
-The usual ways of starting celery are as follows.
-
-### Start celery with heartbeat ###
-
-Example:
-
-    ./manage.py celeryd -B --purge
-
-### Start celery with heartbeat verbose output ###
-
-Example:
-
-    ./manage.py celeryd -B --purge --verbosity=2 --loglevel=INFO
-
-To run celery in production we recommend running it as a daemon.
-
-You can read more about this at: http://celeryproject.org/docs/cookbook/daemonizing.html
+See documentation in the kral folder to learn how to use it.
 
 
 ## Starting Kralit ##
