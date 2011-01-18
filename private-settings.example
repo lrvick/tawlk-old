@@ -1,0 +1,13 @@
+# Copy this file to .private-settings and edit to suit your needs
+
+# Random hash for Django's encryption
+SECRET_KEY = 'Put a lot of random data here'
+
+# Twitter login info    
+TWITTER_USER = "username"
+TWITTER_PASS = "password"
+
+# Visit http://www.flickr.com/services/apps/create/apply/ to create a key
+FLICKR_API_KEY = "API from Flickr"
+
+# vim: ai ts=4 sts=4 et sw=4

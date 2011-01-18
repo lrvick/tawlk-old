@@ -4,8 +4,8 @@ djcelery.setup_loader()
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('Your Name', 'your_email@example.com'),
@@ -34,10 +34,6 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH,'media')
 
 MEDIA_URL = '/media/'
 
-ADMIN_MEDIA_PREFIX = '/media/admin/'
-
-SECRET_KEY = 'type_a_bunch_of_random_characters_here'
-
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -58,16 +54,23 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-#    'django.contrib.auth',
-#    'django.contrib.contenttypes',
-#    'django.contrib.sessions',
-#    'django.contrib.sites',
-#    'django.contrib.messages',
-#    'django.contrib.comments',
-#    'django.contrib.admin',
     'djcelery',
     'kral',
 )
+
+# What Kral plugins to enable
+KRAL_PLUGINS = ['Buzz', 'Identica', 'Twitter', 'Facebook', 'Youtube']
+# Minimum amount of time queries will get before rotation happens
+KRAL_WAIT = 5
+# Maximum number of queries to have running simultaneously
+KRAL_SLOTS = 2
+# What method Kral uses to communicate
+# Valid values: STOMP, AMQP
+KRAL_PUSH_METHOD = 'STOMP'
+
+#Celery settings
+CELERY_RESULT_BACKEND = "amqp"
+CELERY_AMQP_TASK_RESULT_EXPIRES = 18000
 
 #AMPQ Server Info
 BROKER_HOST = "127.0.0.1"
