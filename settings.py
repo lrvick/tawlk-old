@@ -64,9 +64,6 @@ KRAL_PLUGINS = ['Buzz', 'Identica', 'Twitter', 'Facebook', 'Youtube']
 KRAL_WAIT = 5
 # Maximum number of queries to have running simultaneously
 KRAL_SLOTS = 2
-# What method Kral uses to communicate
-# Valid values: STOMP, AMQP
-KRAL_PUSH_METHOD = 'STOMP'
 
 #Celery settings
 CELERY_RESULT_BACKEND = "amqp"
