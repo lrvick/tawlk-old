@@ -3,6 +3,6 @@ celery
 django-celery
 psycopg2
 egenix-mx-base
-stomp.py
 orbited
 setproctitle
+kombu
