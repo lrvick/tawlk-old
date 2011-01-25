@@ -65,17 +65,17 @@ div.Bwrapper div#microblogs img{
     width:48px;
     height:48px;
 }
-div.Bwrapper div.videos,
+div.Bwrapper div#videos,
 div.Bwrapper div.www-top,
 div.Bwrapper div.www-latest,
-div.Bwrapper div.pictures {
+div.Bwrapper div#pictures {
   background:#222;
   height:49.5%;
   overflow:auto;
   border-radius:15px;
 }
-div.Bwrapper div.videos,
-div.Bwrapper div.pictures {
+div.Bwrapper div#videos,
+div.Bwrapper div#pictures {
 margin-bottom:2%;
 }
 
@@ -102,16 +102,33 @@ div ul li span{
   color:#AAA;
   background:#111;
 }
-div.videos ul li{
+div#videos ul li{
   width:45%;
   height:90px;
+  border:0;
+  padding:0;
   display:inline-block;
+  overflow:hidden;
 }
-div.pictures ul li{
+div#videos ul li a{
+  overflow:hidden;
+  display:none;
+}
+div#videos ul li img{
+  margin:0;
+  padding:0;
+  width:100%;
+  margin-top:-16px;
+  margin-left:-10px;
+}
+div#pictures ul li{
   width:27%;
   height:90px;
   margin-right:5px;
   display:inline-block;
+}
+div#pictures ul li a{
+  display:none;
 }
 
 div::-webkit-scrollbar {
