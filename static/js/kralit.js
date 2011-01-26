@@ -11,22 +11,27 @@ function status_update(msg){
   }
 }
 function video_update(msg){
+  if ($("#videos").data("paused") === false){
     $("<li class=\"" + msg["service"] + "\" ><img src='"  + msg['thumbnail']  +  "' /><a href=\"#foo\">" + msg["text"] + "</a></li>").prependTo("#videos ul");
     if ( $("#videos ul > li").size() > 40 ) {
         $('#videos li:last').remove();
     }
+  }
 }
 function picture_update(msg){
+  if ($("#pictures").data("paused") === false){
     $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a href=\"#foo\">" + msg["text"] + "</a></li>").prependTo("#pictures ul");
     if ( $("#pictures ul > li").size() > 60 ) {
         $('#pictures li:last').remove();
     }
+  }
 }
 onload = function() {
-    $("#microblogs").hover(
+    $("div").hover(
     function(event){
       $.data(this, "paused", event.type === 'mouseenter'); 
     });
+    $("div").data("paused",false)
     stomp = new STOMPClient();
     stomp.connect('localhost', 61613,"guest","guest");
     stomp.onclose = function(c) {

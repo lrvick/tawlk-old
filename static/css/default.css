@@ -106,6 +106,10 @@ div.BRwrapper {
   height:100%;
   overflow:hidden;
 }
+div.BMTwrapper, 
+div.BRTwrapper {
+  z-index:1
+}
 div#videos {
   background:#222;
   border-radius:5px;
