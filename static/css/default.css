@@ -162,6 +162,9 @@ div#microblogs {
 div#microblogs li p{
   padding:5px;
 }
+div#microblogs li p a{
+  color:#000;
+}
 div#microblogs li{
   position:relative;
 }
@@ -169,6 +172,9 @@ div#microblogs .statusfooter{
   position:absolute;
   left:16px;
   bottom:2px;
+}
+div#microblogs .statusfooter a{
+  color:#777;
 }
 div#pictures ul,
 div#www-top ul,
@@ -211,7 +217,7 @@ div#videos li{
     height:90px;
     width:45%;
 }
-div#videos ul li a{
+div#videos ul li a span{
   overflow:hidden;
   display:none;
 }
@@ -225,6 +231,15 @@ div#pictures li{
     float:left;
     height:80px;
     width:30%;
+}
+div#pictures ul li a{
+  display:block;
+  height:100%;
+  width:;100%;
+}
+div#pictures ul li a span{
+  overflow:hidden;
+  display:none;
 }
 *::-webkit-scrollbar {
   margin:10px;
