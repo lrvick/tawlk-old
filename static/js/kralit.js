@@ -2,15 +2,21 @@ document.domain = document.domain;
 TCPSocket = Orbited.TCPSocket;
 function status_update(msg){
     $("<li class=\"" + msg["service"] + "\"><img src=\"" + msg['user']["avatar"] + "\"/>" + msg["date"] + " | " + msg["user"]['name'] + " : " + msg["text"] + "</li>").prependTo("#microblogs ul");
-    $('#microblogs li:last').remove();
+    if ( $("#microblogs ul > li").size() > 20 ) {
+        $('#microblogs li:last').remove();
+    }
 }
 function video_update(msg){
     $("<li class=\"" + msg["service"] + "\" ><img src='"  + msg['thumbnail']  +  "' /><a href=\"#foo\">" + msg["text"] + "</a></li>").prependTo("#videos ul");
-    $('#videos li:last').remove();
+    if ( $("#videos ul > li").size() > 40 ) {
+        $('#videos li:last').remove();
+    }
 }
 function picture_update(msg){
     $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a href=\"#foo\">" + msg["text"] + "</a></li>").prependTo("#pictures ul");
-    $('#pictures li:last').remove();
+    if ( $("#pictures ul > li").size() > 60 ) {
+        $('#pictures li:last').remove();
+    }
 }
 onload = function() {
     stomp = new STOMPClient();
