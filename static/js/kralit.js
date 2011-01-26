@@ -1,10 +1,14 @@
 document.domain = document.domain;
 TCPSocket = Orbited.TCPSocket;
 function status_update(msg){
-    $("<li class=\"" + msg["service"] + "\"><img src=\"" + msg['user']["avatar"] + "\"/>" + msg["date"] + " | " + msg["user"]['name'] + " : " + msg["text"] + "</li>").prependTo("#microblogs ul");
-    if ( $("#microblogs ul > li").size() > 20 ) {
+  if ($("#microblogs").data("paused") === false){
+    if (msg["user"]["language"] == 'en'){
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']["avatar"] + "\"/><p>" + msg["text"] + "</p><span class=\"statusfooter\">by " + msg["user"]['name'] + " @ <time>" + msg["date"] + "</time> </span></li>").prependTo("#microblogs ul");
+      if ( $("#microblogs ul > li").size() > 20 ) {
         $('#microblogs li:last').remove();
+      }
     }
+  }
 }
 function video_update(msg){
     $("<li class=\"" + msg["service"] + "\" ><img src='"  + msg['thumbnail']  +  "' /><a href=\"#foo\">" + msg["text"] + "</a></li>").prependTo("#videos ul");
@@ -19,6 +23,10 @@ function picture_update(msg){
     }
 }
 onload = function() {
+    $("#microblogs").hover(
+    function(event){
+      $.data(this, "paused", event.type === 'mouseenter'); 
+    });
     stomp = new STOMPClient();
     stomp.connect('localhost', 61613,"guest","guest");
     stomp.onclose = function(c) {
