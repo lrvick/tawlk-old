@@ -179,7 +179,10 @@ div#microblogs .statusfooter{
   position:absolute;
   left:16px;
   bottom:2px;
-  color:#777;
+  color:#222;
+}
+div#microblogs .statusfooter a{
+  color:#000;
 }
 div#pictures ul,
 div#www-top ul,
