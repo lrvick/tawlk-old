@@ -160,10 +160,17 @@ div#microblogs {
   right:10px;
 }
 div#microblogs li p{
+  position:relative;
   padding:5px;
 }
 div#microblogs li p a{
+  position:absolute;
+  left:73px;
+  right:5px;
   color:#000;
+  display:block;
+  height:53px;
+  overflow:hidden;
 }
 div#microblogs li{
   position:relative;
@@ -172,8 +179,6 @@ div#microblogs .statusfooter{
   position:absolute;
   left:16px;
   bottom:2px;
-}
-div#microblogs .statusfooter a{
   color:#777;
 }
 div#pictures ul,
