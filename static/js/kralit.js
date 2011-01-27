@@ -7,6 +7,7 @@ function status_update(msg){
       if ( $("#microblogs ul > li").size() > 20 ) {
         $('#microblogs li:last').remove();
       }
+      $("#microblogs .count").text(parseInt($("#microblogs .count").text()) + 1);
     }
   }
 }
@@ -16,6 +17,7 @@ function video_update(msg){
     if ( $("#videos ul > li").size() > 40 ) {
         $('#videos li:last').remove();
     }
+    $("#videos .count").text(parseInt($("#videos .count").text()) + 1);
   }
 }
 function picture_update(msg){
@@ -24,6 +26,7 @@ function picture_update(msg){
     if ( $("#pictures ul > li").size() > 60 ) {
         $('#pictures li:last').remove();
     }
+    $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }
 onload = function() {
@@ -48,7 +51,7 @@ onload = function() {
         console.log('Connected');
     };
     stomp.onmessageframe = function(frame){
-        console.log(frame.body);
+        //console.log(frame.body);
         msg = JSON.parse(frame.body);
         if (msg['service'] in {'twitter':'', 'facebook':'', 'identica':''}) {
             status_update(msg);

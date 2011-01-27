@@ -17,7 +17,7 @@ header {
   height:100%;
   width:100%;
   margin:0px auto;
-  background:#222;
+  background:#333;
   font-size:3em;
 }
 h1,h1 span {
@@ -106,6 +106,37 @@ div.BRwrapper {
   height:100%;
   overflow:hidden;
 }
+
+div.title{
+  position:relative;
+  height:30px;
+  font-weight:700;
+  letter-spacing:2px;
+  line-height:30px;
+  text-indent:10px;
+  background:#333;
+  -webkit-border-top-left-radius: 5px;
+-webkit-border-top-right-radius: 5px;
+-moz-border-radius-topleft: 5px;
+-moz-border-radius-topright: 5px;
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+}
+
+div.title span.count{
+  position:absolute;
+  right:4px;
+  top:4px;
+  bottom:4px;
+  color:#666;
+  background:#111;
+  border-radius:5px;
+  line-height:15px;
+  padding:3px;
+  font-size:17px;
+  text-indent:3px;
+}
+
 div.BMTwrapper, 
 div.BRTwrapper {
   z-index:1
@@ -191,7 +222,7 @@ div#videos ul,
 div#microblogs ul {
    position:absolute;
    bottom:0;
-   top:0;
+   top:30px;
    left:0;
    right:0;
 }
