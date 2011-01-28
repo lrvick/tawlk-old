@@ -13,10 +13,9 @@ function status_update(msg){
 }
 function video_update(msg){
   if ($("#videos").data("paused") === false){
-    $("<li class=\"" + msg["service"] + "\" ><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><img src='"  + msg['thumbnail']  +  "' /><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#videos ul").fadeIn('slow');
-    if ( $("#videos ul > li").size() > 40 ) {
-        $('#videos li:last').remove();
-    }
+    var vn = Math.floor(Math.random()*2);
+    $("<li class=\"" + msg["service"] + "\" ><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><img src='"  + msg['thumbnail']  +  "' /><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
+    $("#videos ul ul:eq(" + vn + ") li:last").remove();
     $("#videos .count").text(parseInt($("#videos .count").text()) + 1);
   }
 }

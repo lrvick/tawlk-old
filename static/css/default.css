@@ -305,7 +305,9 @@ div#microblogs .servicetag {
 div#videos li{
     float:left;
     height:90px;
-    width:45%;
+    width:95%;
+    margin:0 auto;
+    margin-bottom:7px;
     border-radius:5px;
 }
 div#videos ul li a span{
@@ -319,7 +321,30 @@ div#videos ul li img{
   margin-top:-16px;
   border-radius:5px;
 }
-
+div#videos ul {
+  margin-left:5px;
+  text-align:center;
+}
+div#videos ul ul {
+  overflow:visible;
+  width:50%;
+  text-align:center;
+  margin-top:0px;
+}
+div#videos ul ul.first {
+  position:absolute;
+  bottom:0;
+  top:0;
+  left:0;
+  right:0;
+}
+div#videos ul ul.second {
+  position:absolute;
+  bottom:0;
+  top:0px;
+  left:49%;
+  padding-left:1px;
+}
 *::-webkit-scrollbar {
   margin:10px;
   width: 11px;
