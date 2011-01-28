@@ -82,6 +82,18 @@ ORBITED_SERVER = "localhost"
 ORBITED_PORT = "9000"
 ORBITED_STOMP_PORT = "61613"
 
+#DJANGO 1.3
+#CACHES = {
+#    'default': {
+#        #'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#        'LOCATION': 'ponies_cache',
+#    }
+#}
+
+#DJANGO 1.2
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+
 #Load installation specific settings/passwords from external file with restrictive permissions
 execfile(os.path.join(PROJECT_PATH,'.private-settings'))
 
