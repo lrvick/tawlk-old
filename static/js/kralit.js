@@ -3,7 +3,7 @@ TCPSocket = Orbited.TCPSocket;
 function status_update(msg){
   if ($("#microblogs").data("paused") === false){
     if (msg["user"]["language"] == 'en'){
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").prependTo("#microblogs ul");
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
       if ( $("#microblogs ul > li").size() > 20 ) {
         $('#microblogs li:last').remove();
       }
@@ -13,7 +13,7 @@ function status_update(msg){
 }
 function video_update(msg){
   if ($("#videos").data("paused") === false){
-    $("<li class=\"" + msg["service"] + "\" ><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><img src='"  + msg['thumbnail']  +  "' /><span>" + msg["text"] + "</span></a></li>").prependTo("#videos ul");
+    $("<li class=\"" + msg["service"] + "\" ><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><img src='"  + msg['thumbnail']  +  "' /><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#videos ul").fadeIn('slow');
     if ( $("#videos ul > li").size() > 40 ) {
         $('#videos li:last').remove();
     }
@@ -22,10 +22,9 @@ function video_update(msg){
 }
 function picture_update(msg){
   if ($("#pictures").data("paused") === false){
-    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg["text"] + "</span></a></li>").prependTo("#pictures ul");
-    if ( $("#pictures ul > li").size() > 60 ) {
-        $('#pictures li:last').remove();
-    }
+    var n = Math.floor(Math.random()*3);
+    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#pictures ul ul:eq(" + n +")").fadeIn('slow');
+    $("#pictures ul ul:eq(" + n + ") li:last").remove();
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }
