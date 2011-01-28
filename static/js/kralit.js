@@ -2,13 +2,11 @@ document.domain = document.domain;
 TCPSocket = Orbited.TCPSocket;
 function status_update(msg){
   if ($("#microblogs").data("paused") === false){
-    if (msg["user"]["language"] == 'en'){
       $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
       if ( $("#microblogs ul > li").size() > 20 ) {
         $('#microblogs li:last').remove();
       }
       $("#microblogs .count").text(parseInt($("#microblogs .count").text()) + 1);
-    }
   }
 }
 function video_update(msg){
@@ -49,9 +47,8 @@ onload = function() {
         console.log('Connected');
     };
     stomp.onmessageframe = function(frame){
-        //console.log(frame.body);
         msg = JSON.parse(frame.body);
-        if (msg['service'] in {'twitter':'', 'facebook':'', 'identica':''}) {
+        if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
             status_update(msg);
         } else if (msg['service'] in {'youtube':''}) {
             video_update(msg);
