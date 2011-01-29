@@ -19,7 +19,7 @@ function status_update(msg){
 function video_update(msg){
   if ($("#videos").data("paused") === false){
     var vn = Math.floor(Math.random()*2);
-    $("<li class=\"" + msg["service"] + "\" ><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><img src='"  + msg['thumbnail']  +  "' /><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
+    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center no-repeat\"><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
     $("#videos ul ul:eq(" + vn + ") li:last").remove();
     $("#videos .count").text(parseInt($("#videos .count").text()) + 1);
   }

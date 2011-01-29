@@ -46,6 +46,8 @@ li {
     overflow:hidden;
     opacity:0.8;
     border-radius:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 li:hover {
   opacity:1;
@@ -53,6 +55,8 @@ li:hover {
 img {
     background:#000 url('/static/img/loading.gif') center no-repeat;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
 }
 div.Twrapper{
   width:100%;
@@ -136,6 +140,8 @@ div.title span.count{
   color:#666;
   background:#111;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   line-height:15px;
   padding:3px;
   font-size:17px;
@@ -160,6 +166,8 @@ div#microblogs ul {
 div#videos {
   background:#222;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   position:absolute;
   bottom:10px;
   top:20px;
@@ -169,6 +177,8 @@ div#videos {
 div#www-top {
   background:#222;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   overflow:hidden;
   position:absolute;
   bottom:0;
@@ -179,6 +189,8 @@ div#www-top {
 div#blogs {
   background:#222;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   overflow:hidden;
   position:absolute;
   bottom:0;
@@ -192,6 +204,8 @@ div#blogs ul li {
 div#pictures {
   background:#222;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   overflow:hidden;
   position:absolute;
   bottom:10px;
@@ -246,6 +260,8 @@ div#pictures ul li a span{
 div#microblogs {
   background:#222;
   border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   overflow:hidden;
   position:absolute;
   bottom:10px;
@@ -303,12 +319,18 @@ div#microblogs .servicetag {
   position:absolute;
 }
 div#videos li{
-    float:left;
-    height:90px;
-    width:95%;
-    margin:0 auto;
-    margin-bottom:7px;
-    border-radius:5px;
+  float:left;
+  height:90px;
+  width:95%;
+  margin:0 auto;
+  margin-bottom:7px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-size:auto 170px;
+  -moz-background-size:auto 170px;
+  -o-background-size:auto 170px;
+  background-size:auto 170px;
 }
 div#videos ul li a span{
   overflow:hidden;
@@ -319,7 +341,9 @@ div#videos ul li img{
   padding:0;
   width:100%;
   margin-top:-16px;
-  border-radius:5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 div#videos ul {
   margin-left:5px;
