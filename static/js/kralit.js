@@ -1,5 +1,12 @@
-document.domain = document.domain;
-TCPSocket = Orbited.TCPSocket;
+function processMsg(msg){
+  if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
+    status_update(msg);
+  } else if (msg['service'] in {'youtube':''}) {
+    video_update(msg);
+  } else if (msg['service'] in {'flickr':''}) {
+    picture_update(msg);
+  }
+}
 function status_update(msg){
   if ($("#microblogs").data("paused") === false){
       $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
@@ -26,11 +33,19 @@ function picture_update(msg){
   }
 }
 onload = function() {
-    $("div").hover(
-    function(event){
+    $.each(['flickr','youtube','facebook','twitter'], function(i,service){
+      $.getJSON("/feeds/" + service +".json", function(data) {
+        $.each(data, function(i,msg){
+          processMsg(msg);
+        });
+      });
+    }); 
+    $("div").hover(function(event){
       $.data(this, "paused", event.type === 'mouseenter'); 
     });
-    $("div").data("paused",false)
+    $("div").data("paused",false);
+    document.domain = document.domain;
+    TCPSocket = Orbited.TCPSocket;
     stomp = new STOMPClient();
     stomp.connect('localhost', 61613,"guest","guest");
     stomp.onclose = function(c) {
@@ -48,13 +63,6 @@ onload = function() {
     };
     stomp.onmessageframe = function(frame){
         msg = JSON.parse(frame.body);
-        if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
-            status_update(msg);
-        } else if (msg['service'] in {'youtube':''}) {
-            video_update(msg);
-        } else if (msg['service'] in {'flickr':''}) {
-            picture_update(msg);
-        }
+        processMsg(msg);
     };
 };
-

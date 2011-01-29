@@ -9,7 +9,7 @@ urlpatterns = patterns('',
         "orbited_port": settings.ORBITED_PORT,
         "orbited_stomp_port": settings.ORBITED_STOMP_PORT,
     }}),
-  (r'^cache.json$', fetch_cache),
+  (r'^feeds/(?P<cache_name>\w+).json$', fetch_cache),
   (r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': os.path.join(os.path.dirname(__file__), 'static')}),
 )
 
