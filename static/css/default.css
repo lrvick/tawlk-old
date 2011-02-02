@@ -20,6 +20,32 @@ header {
   background:#333;
   font-size:3em;
 }
+nav {
+    display:block;
+    position:absolute;
+    left:220px;
+    top:0px;
+}
+nav a {
+    margin-left:15px;
+    height:35px;
+    line-height:35px;
+    display:block;
+    float:left;
+    background:#444;
+    font-size:20px;
+    padding-left:10px;
+    padding-right:10px;
+    margin-top:5px;
+    border-radius:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color:#777;
+    border:2px #444 solid;
+}
+nav a:hover {
+    border:2px #666 solid;
+}
 h1,h1 span {
   margin-left:10px;
   font-size:48px;

@@ -34,7 +34,7 @@ function picture_update(msg){
 }
 onload = function() {
     $.each(['flickr','youtube','facebook','twitter'], function(i,service){
-      $.getJSON("/feeds/" + service +".json", function(data) {
+      $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
           processMsg(msg);
         });
@@ -58,7 +58,7 @@ onload = function() {
         console.log("onerrorframe: " + frame.body);
     };
     stomp.onconnectedframe = function(){
-        stomp.subscribe("", {"exchange": "messages"});
+        stomp.subscribe("", {"exchange": query});
         console.log('Connected');
     };
     stomp.onmessageframe = function(frame){

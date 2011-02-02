@@ -5,14 +5,20 @@
     <link href='http://fonts.googleapis.com/css?family=Geo' rel='stylesheet' type='text/css'> 
     <link href="/static/css/default.css" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script>var query = "{{ params.query }}";</script>
     <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/Orbited.js"></script>
     <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/protocols/stomp/stomp.js"></script>
     <script src="static/js/kralit.js"></script>
   </head> 
-  <body> 
+  <body class={{ params.query }}> 
     <div class="Twrapper"> 
       <header> 
-        <h1><a href="http:/kral.it/">KRAL IT</a></h1>
+        <h1><a href="http:/kral.it/">KRAL IT --></a></h1>
+        <nav>
+        {% for query in all_queries %}
+            <a href="/{{ query }}">{{ query }}</a>
+        {% endfor %}
+        </nav>
       </header> 
     </div> 
     <div class="Bwrapper"> 

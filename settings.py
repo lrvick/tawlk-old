@@ -64,6 +64,8 @@ KRAL_PLUGINS = ['Buzz', 'Identica', 'Twitter', 'Facebook', 'Youtube']
 KRAL_WAIT = 5
 # Maximum number of queries to have running simultaneously
 KRAL_SLOTS = 2
+# Default queries to search
+KRAL_QUERIES = ['iphone','apple','google','android','tech']
 
 #Celery settings
 CELERY_RESULT_BACKEND = "amqp"
