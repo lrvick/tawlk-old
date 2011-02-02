@@ -5,6 +5,8 @@ function processMsg(msg){
     video_update(msg);
   } else if (msg['service'] in {'flickr':''}) {
     picture_update(msg);
+  } else if (msg['service'] in {'wordpress':''}) {
+    blog_update(msg);
   }
 }
 function status_update(msg){
@@ -14,6 +16,15 @@ function status_update(msg){
         $('#microblogs li:last').remove();
       }
       $("#microblogs .count").text(parseInt($("#microblogs .count").text()) + 1);
+  }
+}
+function blog_update(msg){
+  if ($("#blogs").data("paused") === false){
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#blogs ul").fadeIn('slow');
+      if ( $("#blogs ul > li").size() > 20 ) {
+        $('#blogs li:last').remove();
+      }
+      $("#blogs .count").text(parseInt($("#blogs .count").text()) + 1);
   }
 }
 function video_update(msg){
@@ -33,7 +44,7 @@ function picture_update(msg){
   }
 }
 onload = function() {
-    $.each(['flickr','youtube','facebook','twitter'], function(i,service){
+    $.each(['flickr','youtube','facebook','twitter','wordpress'], function(i,service){
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
           processMsg(msg);
