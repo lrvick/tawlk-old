@@ -224,9 +224,6 @@ div#blogs {
   left:0;
   right:10px;
 }
-div#blogs ul li {
-  height:90px;
-}
 div#pictures {
   background:#222;
   border-radius:5px;
@@ -295,10 +292,12 @@ div#microblogs {
   left:10px;
   right:10px;
 }
-div#microblogs li p{
+div#microblogs li p,
+div#blogs li p{
   position:relative;
   padding:5px;
 }
+div#blogs li p.title a,
 div#microblogs li p a{
   position:absolute;
   left:73px;
@@ -308,23 +307,28 @@ div#microblogs li p a{
   height:53px;
   overflow:hidden;
 }
+div#blogs li,
 div#microblogs li{
   position:relative;
 }
+div#blogs .statusfooter,
 div#microblogs .statusfooter{
   position:absolute;
   left:16px;
   bottom:2px;
   color:#222;
 }
+div#blogs .statusfooter a,
 div#microblogs .statusfooter a{
   color:#000;
 }
 
+div#blogs li,
 div#microblogs li{
     height:80px;
     border:2px #333 solid;
 }
+div#blogs img,
 div#microblogs img{
     margin:5px;
     margin-left:19px;
@@ -332,6 +336,8 @@ div#microblogs img{
     width:48px;
     height:48px;
 }
+
+div#blogs .servicetag,
 div#microblogs .servicetag {
   display:block;
   background:#333;
@@ -343,6 +349,30 @@ div#microblogs .servicetag {
   margin-left:-34px;
   margin-top:33px;
   position:absolute;
+}
+div#blogs li p.title a{
+  right:73px;
+  left:18px;
+  height:14px;
+  font-size:16px;
+
+}
+div#blogs ul li {
+  height:100px;
+}
+div#blogs li .servicetag{
+  margin-top:43px;
+  margin-left:-44px;
+    width:100px;
+}
+div#blogs li .description{
+  margin-top:8px;
+  margin-left:15px;
+  height:50px;
+  overflow:hidden;
+}
+div#blogs img{
+    float:right;
 }
 div#videos li{
   float:left;
