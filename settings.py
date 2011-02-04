@@ -68,8 +68,7 @@ KRAL_SLOTS = 2
 KRAL_QUERIES = ['iphone','apple','google','android','tech']
 
 #Celery settings
-CELERY_RESULT_BACKEND = "amqp"
-CELERY_AMQP_TASK_RESULT_EXPIRES = 18000
+CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
 #AMPQ Server Info
 BROKER_HOST = "127.0.0.1"

@@ -1,19 +1,20 @@
 <!DOCTYPE HTML> 
 <html> 
   <head> 
-    <title>Kral.it GUI Preview</title> 
+    <title>KRAL IT</title> 
     <link href='http://fonts.googleapis.com/css?family=Geo' rel='stylesheet' type='text/css'> 
     <link href="/static/css/default.css" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-    <script>var query = "{{ params.query }}";</script>
+    <script>var query = "{{ query }}";</script>
     <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/Orbited.js"></script>
     <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/protocols/stomp/stomp.js"></script>
     <script src="static/js/kralit.js"></script>
   </head> 
-  <body class={{ params.query }}> 
+  <body class={{ query }}> 
     <div class="Twrapper"> 
       <header> 
         <h1><a href="http:/kral.it/">KRAL IT --></a></h1>
+        <form action="/" method="POST"><input name="query" type="text"/>{% csrf_token %}</form>
         <nav>
         {% for query in all_queries %}
             <a href="/{{ query }}">{{ query }}</a>

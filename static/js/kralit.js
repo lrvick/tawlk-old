@@ -55,25 +55,30 @@ onload = function() {
       $.data(this, "paused", event.type === 'mouseenter'); 
     });
     $("div").data("paused",false);
-    document.domain = document.domain;
-    TCPSocket = Orbited.TCPSocket;
-    stomp = new STOMPClient();
-    stomp.connect('localhost', 61613,"guest","guest");
-    stomp.onclose = function(c) {
-        console.log("Lost connection, Code:" + c);
+    function kral_listen(){
+        document.domain = document.domain;
+        TCPSocket = Orbited.TCPSocket;
+        stomp = new STOMPClient();
+        stomp.connect('localhost', 61613,"guest","guest");
+        stomp.onclose = function(c) {
+            console.log("Lost connection, Code:" + c);
+        };
+        stomp.onerror = function(error) {
+            console.log("Error:" + error);
+        };
+        stomp.onerrorframe = function(frame) {
+            console.log("onerrorframe: " + frame.body);
+            stomp.reset();
+            stomp.subscribe("/exchange/" + query);
+        };
+        stomp.onconnectedframe = function(){
+            stomp.subscribe("/exchange/" + query);
+            console.log('Connected');
+        };
+        stomp.onmessageframe = function(frame){
+            msg = JSON.parse(frame.body);
+            processMsg(msg);
+        };
     };
-    stomp.onerror = function(error) {
-        console.log("Error:" + error);
-    };
-    stomp.onerrorframe = function(frame) {
-        console.log("onerrorframe: " + frame.body);
-    };
-    stomp.onconnectedframe = function(){
-        stomp.subscribe("", {"exchange": query});
-        console.log('Connected');
-    };
-    stomp.onmessageframe = function(frame){
-        msg = JSON.parse(frame.body);
-        processMsg(msg);
-    };
+    kral_listen();
 };
