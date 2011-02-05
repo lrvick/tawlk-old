@@ -30,7 +30,7 @@ function blog_update(msg){
 function video_update(msg){
   if ($("#videos").data("paused") === false){
     var vn = Math.floor(Math.random()*2);
-    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center no-repeat\"><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
+    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center no-repeat\"><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\" \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
     $("#videos ul ul:eq(" + vn + ") li:last").remove();
     $("#videos .count").text(parseInt($("#videos .count").text()) + 1);
   }
@@ -38,7 +38,7 @@ function video_update(msg){
 function picture_update(msg){
   if ($("#pictures").data("paused") === false){
     var n = Math.floor(Math.random()*3);
-    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg["text"] + "</span></a></li>").hide().prependTo("#pictures ul ul:eq(" + n +")").fadeIn('slow');
+    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#pictures ul ul:eq(" + n +")").fadeIn('slow');
     $("#pictures ul ul:eq(" + n + ") li:last").remove();
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
@@ -77,6 +77,7 @@ onload = function() {
         };
         stomp.onmessageframe = function(frame){
             msg = JSON.parse(frame.body);
+            console.log(msg)
             processMsg(msg);
         };
     };

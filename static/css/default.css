@@ -404,9 +404,34 @@ div#videos li{
   -o-background-size:auto 170px;
   background-size:auto 170px;
 }
-div#videos ul li a span{
+
+div#videos ul li a,
+div#pictures ul li a{
+  display:block;
+  width:100%;
+  height:100%;
+  position:relative;
+}
+div#videos ul li a span,
+div#pictures ul li a span {
+    display:none;
+}
+div#videos ul li a:hover span,
+div#pictures ul li a:hover span {
+  display:block;
+  position:absolute;
+  bottom:0;
+  height:15px;
   overflow:hidden;
-  display:none;
+  background:#000;
+  opacity:0.8;
+  width:100%;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 div#videos ul li img{
   margin:0;
