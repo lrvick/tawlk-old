@@ -158,23 +158,36 @@ div.BRwrapper {
   overflow:hidden;
 }
 
-div.title{
+div.header{
   position:relative;
   height:30px;
-  font-weight:700;
-  letter-spacing:2px;
   line-height:30px;
-  text-indent:10px;
-  background:#333;
   -webkit-border-top-left-radius: 5px;
--webkit-border-top-right-radius: 5px;
--moz-border-radius-topleft: 5px;
--moz-border-radius-topright: 5px;
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #333;
 }
 
-div.title span.count{
+div.header span.title{
+  font-weight:700;
+  letter-spacing:2px;
+  display:block;
+  text-indent:30px;
+  margin-left:5px;
+  background: url('/static/img/loader.gif') left center no-repeat;
+}
+
+div.container:hover span.title{
+  background: url('/static/img/pause.png') left center no-repeat;
+}
+div.play span.title{
+  background: url('/static/img/play.png') left center no-repeat;
+}
+
+div.header span.count{
   position:absolute;
   right:4px;
   top:4px;

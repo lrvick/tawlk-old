@@ -97,5 +97,4 @@ CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 #Load installation specific settings/passwords from external file with restrictive permissions
 execfile(os.path.join(PROJECT_PATH,'.private-settings'))
 
-
 # vim: ai ts=4 sts=4 et sw=4

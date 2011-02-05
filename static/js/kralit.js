@@ -51,8 +51,8 @@ onload = function() {
         });
       });
     }); 
-    $("div").hover(function(event){
-      $.data(this, "paused", event.type === 'mouseenter'); 
+    $(".container").hover(function(event){
+      $.data(this, "paused", event.type === 'mouseenter');
     });
     $("div").data("paused",false);
     function kral_listen(){
@@ -77,7 +77,7 @@ onload = function() {
         };
         stomp.onmessageframe = function(frame){
             msg = JSON.parse(frame.body);
-            console.log(msg)
+            //console.log(msg)
             processMsg(msg);
         };
     };
