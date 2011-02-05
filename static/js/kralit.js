@@ -81,5 +81,7 @@ onload = function() {
             processMsg(msg);
         };
     };
-    kral_listen();
+    if (query != 'default'){
+        kral_listen();
+    }
 };
