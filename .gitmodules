@@ -4,3 +4,6 @@
 [submodule "filr"]
 	path = filr
 	url = git://github.com/UdderWeb/filr.git
+[submodule "static/js/CuteTime"]
+	path = static/js/CuteTime
+	url = git://github.com/theproductguy/CuteTime.git

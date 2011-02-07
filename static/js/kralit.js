@@ -11,20 +11,22 @@ function processMsg(msg){
 }
 function status_update(msg){
   if ($("#microblogs").data("paused") === false){
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\"><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\"><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
       if ( $("#microblogs ul > li").size() > 20 ) {
         $('#microblogs li:last').remove();
       }
       $("#microblogs .count").text(parseInt($("#microblogs .count").text()) + 1);
   }
+    $('#microblogs li time').cuteTime(); 
 }
 function blog_update(msg){
   if ($("#blogs").data("paused") === false){
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\"><a href=\"" + msg['source'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><p class=\"description\">" + msg["description"] + "</p><span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> @ <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#blogs ul").fadeIn('slow');
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\">" + msg["service"] + "</span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\"><a href=\"" + msg['source'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><p class=\"description\">" + msg["description"] + "</p><span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#blogs ul").fadeIn('slow');
       if ( $("#blogs ul > li").size() > 20 ) {
         $('#blogs li:last').remove();
       }
       $("#blogs .count").text(parseInt($("#blogs .count").text()) + 1);
+    $('#blogs li time').cuteTime(); 
   }
 }
 function video_update(msg){
@@ -50,7 +52,8 @@ onload = function() {
           processMsg(msg);
         });
       });
-    }); 
+    });
+    $('time').cuteTime(); 
     $(".container").hover(function(event){
       $.data(this, "paused", event.type === 'mouseenter');
     });
