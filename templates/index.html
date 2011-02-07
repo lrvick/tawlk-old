@@ -16,7 +16,7 @@
     <div class="Twrapper"> 
       <header> 
         <h1><a href="http:/kral.it/">KRAL IT --></a></h1>
-        <form action="/" method="POST"><input name="query" type="text"/>{% csrf_token %}</form>
+        <form action="/" method="POST"><input name="query" maxlength="25" type="text"/>{% csrf_token %}</form>
         <nav>
         {% for query_us,query in all_queries.items %}
             <a href="/{{ query_us }}">{{ query }}</a>
