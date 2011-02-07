@@ -1,3 +1,5 @@
+document.domain = document.domain;
+
 function processMsg(msg){
   if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
     status_update(msg);
@@ -59,7 +61,6 @@ onload = function() {
     });
     $("div").data("paused",false);
     function kral_listen(){
-        document.domain = document.domain;
         TCPSocket = Orbited.TCPSocket;
         stomp = new STOMPClient();
         stomp.connect('localhost', 61613,"guest","guest");
