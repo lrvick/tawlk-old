@@ -378,7 +378,9 @@ div#microblogs .servicetag {
   background:#333;
   color:#111;
   -webkit-transform: rotate(-90deg);
--moz-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
   width:81px;
   text-align:center;
   margin-left:-34px;
