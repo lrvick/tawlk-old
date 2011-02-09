@@ -67,6 +67,7 @@ KRAL_SLOTS = 2
 KRAL_QUERIES = ['iphone','apple','google','android','tech']
 
 #Celery settings
+CELERY_RESULT_BACKEND = "cache"
 CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
 #AMPQ Server Info
@@ -76,7 +77,8 @@ BROKER_VHOST = "/"
 BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"
 
-CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
+#CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
+CELERYBEAT_SCHEDULER="celery.beat.PersistentScheduler"
 
 ORBITED_SERVER = "localhost"
 ORBITED_PORT = "9000"
