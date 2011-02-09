@@ -9,6 +9,9 @@ function processMsg(msg){
     picture_update(msg);
   } else if (msg['service'] in {'wordpress':''}) {
     blog_update(msg);
+  } else if (msg['service'] in {'links':''}) {
+    links_update(msg);
+    console.log(msg)
   }
 }
 function status_update(msg){
@@ -47,8 +50,14 @@ function picture_update(msg){
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }
+function links_update(msg){
+  if ($("#links").data("paused") === false){
+    $("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").hide().prependTo("#links ul").fadeIn('slow');
+    $("#links .count").text(parseInt($("#links .count").text()) + 1);
+  }
+}
 onload = function() {
-    $.each(['flickr','youtube','facebook','twitter','wordpress'], function(i,service){
+    $.each(['flickr','youtube','facebook','twitter','wordpress','links'], function(i,service){
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
           processMsg(msg);

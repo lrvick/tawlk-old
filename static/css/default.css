@@ -88,7 +88,6 @@ li {
     background:#444;
     line-height:14px;
     font-size:14px;
-    min-height:50px;
     margin-bottom:6px;
     margin-right:6px;
     overflow:hidden;
@@ -214,7 +213,7 @@ div.BRTwrapper {
   z-index:1
 }
 div#pictures ul,
-div#www-top ul,
+div#links ul,
 div#blogs ul,
 div#videos ul,
 div#microblogs ul {
@@ -235,7 +234,7 @@ div#videos {
   left:0;
   right:10px;
 }
-div#www-top {
+div#links {
   background:#222;
   border-radius:5px;
   -webkit-border-radius: 5px;
@@ -246,6 +245,40 @@ div#www-top {
   top:50%;
   left:0;
   right:10px;
+}
+div#links li {
+  padding:10px;
+  padding-right:60px;
+  height:18px;
+  position:relative;
+}
+div#links li a {
+  display:block;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  width:100%;
+  display:block;
+  font-size:11px;
+}
+div#links .mentions{
+position:absolute;
+display:block;
+right:0px;
+top:0px;
+line-height:30px;
+height:100%;
+font-size:20px;
+background:#111;
+color:#FFF;
+width:35px;
+text-align:center;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 div#blogs {
   background:#222;
