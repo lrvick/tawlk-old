@@ -258,6 +258,10 @@ div#links li a {
   display:block;
   white-space:nowrap;
   text-overflow:ellipsis;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  /* The following hack only works for FF3. FF4 users: Blame Mozilla */
+  -moz-binding: url('/static/css/ellipsis.xml#ellipsis');
   overflow:hidden;
   width:100%;
   display:block;
