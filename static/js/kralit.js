@@ -50,20 +50,32 @@ function picture_update(msg){
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }
-function links_update(msg){
+function links_update(msg,position){
+    console.log(position);
   if ($("#links").data("paused") === false){
-    $("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").hide().prependTo("#links ul").fadeIn('slow');
-    $("#links .count").text(parseInt($("#links .count").text()) + 1);
-  }
+      if ( $("#links ul > li").size() < 30 ) {
+        $("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").hide().prependTo("#links ul").fadeIn('slow');
+        $("#links .count").text(parseInt($("#links .count").text()) + 1);
+      } else {
+        $("#links ul li:eq(" + position  +")").replaceWith("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>");
+      }
+   }
 }
 onload = function() {
-    $.each(['flickr','youtube','facebook','twitter','wordpress','links'], function(i,service){
+    $.each(['flickr','youtube','facebook','twitter','wordpress'], function(i,service){
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
           processMsg(msg);
         });
       });
     });
+    setInterval(function() {
+      $.getJSON("/feeds/links/" + query + ".json", function(data) {
+        $.each(data, function(i,msg){
+          processMsg(msg,i);
+        });
+      });
+    },5000);
     $('time').cuteTime(); 
     $(".container").hover(function(event){
       $.data(this, "paused", event.type === 'mouseenter');
