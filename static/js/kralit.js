@@ -1,5 +1,8 @@
 document.domain = document.domain;
-
+function urlToHREF(text) {
+  var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  return text.replace(exp,"<a href='$1' target=\"_blank\">$1</a>"); 
+}
 function processMsg(msg){
   if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
     status_update(msg);
@@ -11,12 +14,12 @@ function processMsg(msg){
     blog_update(msg);
   } else if (msg['service'] in {'links':''}) {
     links_update(msg);
-    console.log(msg)
   }
 }
 function status_update(msg){
   if ($("#microblogs").data("paused") === false){
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\"><a href=\"http://twitter.com/#!/" + msg['user']['name'] + "/status/" + msg['id'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
+      msg['text'] = urlToHREF(msg['text']);
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\">" + msg["text"] + "</p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
       if ( $("#microblogs ul > li").size() > 20 ) {
         $('#microblogs li:last').remove();
       }
@@ -50,35 +53,35 @@ function picture_update(msg){
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }
-function links_update(msg,position){
-    console.log(position);
+function links_update(msg){
   if ($("#links").data("paused") === false){
-      if ( $("#links ul > li").size() < 30 ) {
-        $("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").hide().prependTo("#links ul").fadeIn('slow');
+        window.beforeIndex = 0;
+        $($('#links li .mentions').get().reverse()).each(function(index) {
+            if ($(this).text() <= msg['count']){
+                window.beforeIndex = $(this).index();
+             } 
+        });
+        console.log(window.beforeIndex);
+        $("#links ul li").eq(window.beforeIndex).before("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>")
         $("#links .count").text(parseInt($("#links .count").text()) + 1);
-      } else {
-        $("#links ul li:eq(" + position  +")").replaceWith("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>");
-      }
+        //$("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").insertAfter("#links ul li:eq(" + window.afterIndex  + ") ");
+        //$('#links ul').append("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>")
+        //$("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").hide().insertAfter("#links ul:eq(" + window.afterIndex  + ") ").fadeIn('slow');
    }
 }
 onload = function() {
-    $.each(['flickr','youtube','facebook','twitter','wordpress'], function(i,service){
+    $.each(['flickr','youtube','facebook','twitter','wordpress','links'], function(i,service){
+      $.fx.off = true;
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
           processMsg(msg);
         });
       });
+      $.fx.off = false;
     });
-    setInterval(function() {
-      $.getJSON("/feeds/links/" + query + ".json", function(data) {
-        $.each(data, function(i,msg){
-          processMsg(msg,i);
-        });
-      });
-    },5000);
     $('time').cuteTime(); 
     $(".container").hover(function(event){
-      $.data(this, "paused", event.type === 'mouseenter');
+        $.data(this, "paused", event.type === 'mouseenter');
     });
     $("div").data("paused",false);
     function kral_listen(){
@@ -102,7 +105,6 @@ onload = function() {
         };
         stomp.onmessageframe = function(frame){
             msg = JSON.parse(frame.body);
-            //console.log(msg)
             processMsg(msg);
         };
     };
