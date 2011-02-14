@@ -268,17 +268,17 @@ div#links li a {
   font-size:11px;
 }
 div#links .mentions{
-position:absolute;
-display:block;
-right:0px;
-top:0px;
-line-height:30px;
-height:100%;
-font-size:20px;
-background:#111;
-color:#FFF;
-width:35px;
-text-align:center;
+  position:absolute;
+  display:block;
+  right:0px;
+  top:0px;
+  line-height:30px;
+  height:100%;
+  font-size:20px;
+  background:#111;
+  color:#FFF;
+  width:35px;
+  text-align:center;
   -webkit-border-bottom-right-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-radius-bottomright: 5px;
@@ -385,6 +385,9 @@ div#blogs li,
 div#microblogs li{
   position:relative;
 }
+div#microblogs .title{
+  display:none;
+}
 div#blogs .statusfooter,
 div#microblogs .statusfooter{
   position:absolute;
@@ -450,21 +453,24 @@ div#blogs .servicetag a{
   left:-41px;
   top:42px;
 }
-div#blogs li p.title a{
-  right:73px;
-  left:18px;
-  height:14px;
-  font-size:16px;
-
-}
 div#blogs ul li {
   height:100px;
 }
-div#blogs li .description{
-  margin-top:8px;
-  margin-left:15px;
-  height:50px;
+div#blogs li .title{
+  font-size:16px;
+  margin-top:2px;
+  margin-left:19px;
+  height:10px;
+  line-height:16px;
   overflow:hidden;
+  font-weight:600;
+}
+div#blogs li p.text{
+  right:73px;
+  left:18px;
+  height:38px;
+  overflow:hidden;
+  font-size:15px;
 }
 div#blogs img{
     float:right;

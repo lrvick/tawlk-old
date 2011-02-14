@@ -5,36 +5,32 @@ function urlToHREF(text) {
 }
 function processMsg(msg){
   if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
-    status_update(msg);
+    routeMsg(msg,'microblogs');
   } else if (msg['service'] in {'youtube':''}) {
     video_update(msg);
   } else if (msg['service'] in {'flickr':''}) {
     picture_update(msg);
   } else if (msg['service'] in {'wordpress':''}) {
-    blog_update(msg);
+    routeMsg(msg,'blogs');
   } else if (msg['service'] in {'links':''}) {
     links_update(msg);
   }
 }
-function status_update(msg){
-  if ($("#microblogs").data("paused") === false){
-      msg['text'] = urlToHREF(msg['text']);
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\">" + msg["text"] + "</p><span class=\"statusfooter\">by <a href=\"http://twitter.com/" + msg["user"]['name'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#microblogs ul").fadeIn('slow');
-      if ( $("#microblogs ul > li").size() > 20 ) {
-        $('#microblogs li:last').remove();
+function routeMsg(msg,element){
+    msg['text'] = urlToHREF(msg['text']);
+  if ($("#"+ element  +"").data("paused") === false){
+      if (msg['title']) {
+        title = "<p class=\"title\">" + msg["title"] + "</p>"
       }
-      $("#microblogs .count").text(parseInt($("#microblogs .count").text()) + 1);
-  }
-    $('#microblogs li time').cuteTime(); 
-}
-function blog_update(msg){
-  if ($("#blogs").data("paused") === false){
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/><p class=\"title\"><a href=\"" + msg['source'] + "\" onclick=\"window.open(this.href);return false;\" >" + msg["text"] + "</a></p><p class=\"description\">" + msg["description"] + "</p><span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#blogs ul").fadeIn('slow');
-      if ( $("#blogs ul > li").size() > 20 ) {
-        $('#blogs li:last').remove();
+      if (msg['text']) {
+        text = "<p class=\"text\">" + msg["text"] + "</p>"
       }
-      $("#blogs .count").text(parseInt($("#blogs .count").text()) + 1);
-    $('#blogs li time').cuteTime(); 
+      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/>" + title + " " + text  + "<span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#" + element  + " ul").fadeIn('slow');
+      if ( $("#" + element  + " ul > li").size() > 20 ) {
+        $("#" + element + " li:last").remove();
+      }
+      $("#" + element  + " .count").text(parseInt($("#" + element  + " .count").text()) + 1);
+    $("#" + element  + " li time").cuteTime(); 
   }
 }
 function video_update(msg){
@@ -55,18 +51,22 @@ function picture_update(msg){
 }
 function links_update(msg){
   if ($("#links").data("paused") === false){
-        window.beforeIndex = 0;
-        $($('#links li .mentions').get().reverse()).each(function(index) {
-            if ($(this).text() <= msg['count']){
-                window.beforeIndex = $(this).index();
-             } 
-        });
-        console.log(window.beforeIndex);
-        $("#links ul li").eq(window.beforeIndex).before("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>")
+        var newLink = "<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
+        var sortedLinks = new Array();
+        $("#links li").each(function(i, item) { 
+            sortedLinks.push($(this).html());    
+        })
+        var totalLinks = sortedLinks.length;
+        if (totalLinks == '0'){
+            $(newLink).prependTo('#links ul')
+        } else {
+            sortedLinks.push(newLink);
+            sortedLinks.sort();
+            var newLinkPosition = $.inArray(newLink,sortedLinks);
+            console.log(newLinkPosition)
+            $("#links ul li:nth-child(" + newLinkPosition + ")").before(newLink);
+        }
         $("#links .count").text(parseInt($("#links .count").text()) + 1);
-        //$("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").insertAfter("#links ul li:eq(" + window.afterIndex  + ") ");
-        //$('#links ul').append("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>")
-        //$("<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>").hide().insertAfter("#links ul:eq(" + window.afterIndex  + ") ").fadeIn('slow');
    }
 }
 onload = function() {
