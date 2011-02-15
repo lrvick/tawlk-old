@@ -415,8 +415,7 @@ div#microblogs img{
     height:48px;
 }
 
-div#blogs .servicetag,
-div#microblogs .servicetag {
+div.container .servicetag {
   display:block;
   background:#111;
   color:#AAA;
@@ -453,6 +452,22 @@ div#blogs .servicetag a{
   left:-41px;
   top:42px;
 }
+
+/* uncomment to enable per-service tag colors
+div.container .twitter .servicetag {
+  background:#64AEC4;
+}
+div.container .facebook .servicetag {
+  background:#385FE0;
+}
+div.container .buzz .servicetag {
+  background:#C4C164;
+}
+div.container .wordpress .servicetag {
+  background:#8AD3DE;
+}
+*/
+
 div#blogs ul li {
   height:100px;
 }

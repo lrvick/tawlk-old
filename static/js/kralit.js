@@ -76,15 +76,14 @@ function links_update(msg){
         }
     }
 }
+$.fx.off = true;
 onload = function() {
     $.each(['flickr','youtube','facebook','twitter','wordpress','links','buzz'], function(i,service){
-      $.fx.off = true;
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
           processMsg(msg);
         });
       });
-      $.fx.off = false;
     });
     $('time').cuteTime(); 
     $(".container").hover(function(event){
@@ -112,6 +111,7 @@ onload = function() {
         };
         stomp.onmessageframe = function(frame){
             msg = JSON.parse(frame.body);
+            $.fx.off = false;
             processMsg(msg);
         };
     };
