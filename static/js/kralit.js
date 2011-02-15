@@ -4,7 +4,7 @@ function urlToHREF(text) {
   return text.replace(exp,"<a href='$1' target=\"_blank\">$1</a>"); 
 }
 function processMsg(msg){
-  if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':''}) {
+  if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':'','buzz':''}) {
     routeMsg(msg,'microblogs');
   } else if (msg['service'] in {'youtube':''}) {
     video_update(msg);
@@ -77,7 +77,7 @@ function links_update(msg){
     }
 }
 onload = function() {
-    $.each(['flickr','youtube','facebook','twitter','wordpress','links'], function(i,service){
+    $.each(['flickr','youtube','facebook','twitter','wordpress','links','buzz'], function(i,service){
       $.fx.off = true;
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
