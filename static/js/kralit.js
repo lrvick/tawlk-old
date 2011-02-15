@@ -19,13 +19,15 @@ function processMsg(msg){
 function routeMsg(msg,element){
     msg['text'] = urlToHREF(msg['text']);
   if ($("#"+ element  +"").data("paused") === false){
+      msgHTML = "<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/>"
       if (msg['title']) {
-        title = "<p class=\"title\">" + msg["title"] + "</p>"
+        msgHTML += "<p class=\"title\">" + msg["title"] + "</p>"
       }
       if (msg['text']) {
-        text = "<p class=\"text\">" + msg["text"] + "</p>"
+        msgHTML += "<p class=\"text\">" + msg["text"] + "</p>"
       }
-      $("<li class=\"" + msg["service"] + "\"><span class=\"servicetag\"><a href=\"http://" + msg["service"] + ".com\">" + msg["service"] + "</a></span><img src=\"" + msg['user']['avatar'] + "\"/>" + title + " " + text  + "<span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time> </span></li>").hide().prependTo("#" + element  + " ul").fadeIn('slow');
+      msgHTML += "<span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" target=\"_blank\" \">" + msg["user"]['name'] + "</a><time>" + msg["date"] + "</time></span></li>"
+      $(msgHTML).hide().prependTo("#" + element  + " ul").fadeIn('slow');
       if ( $("#" + element  + " ul > li").size() > 20 ) {
         $("#" + element + " li:last").remove();
       }
@@ -50,24 +52,29 @@ function picture_update(msg){
   }
 }
 function links_update(msg){
-  if ($("#links").data("paused") === false){
-        var newLink = "<li class=\"link\"><a href=\"" + msg['href'] + "\" onclick=\"window.open(this.href);return false;\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
-        var sortedLinks = new Array();
-        $("#links li").each(function(i, item) { 
-            sortedLinks.push($(this).html());    
-        })
-        var totalLinks = sortedLinks.length;
-        if (totalLinks == '0'){
-            $(newLink).prependTo('#links ul')
+    if ($("#links").data("paused") === false){
+        var newLink = "<li class=\"link\"><a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
+        var $list = $("#links ul");
+        var $links = $list.children("li").detach();
+        newHREF = $(newLink).children('a').attr('href');
+        existingLink = $links.find("a[href$=" + newHREF + "]");
+        if (existingLink.length){
+            newValue = $(newLink).find('.mentions').html()
+            existingLink.parent().find('.mentions').html(newValue)
         } else {
-            sortedLinks.push(newLink);
-            sortedLinks.sort();
-            var newLinkPosition = $.inArray(newLink,sortedLinks);
-            console.log(newLinkPosition)
-            $("#links ul li:nth-child(" + newLinkPosition + ")").before(newLink);
+            $links = $links.add(newLink)
         }
+        $links=$($links.get().sort(function(a, b) {
+            var linkA = +$(a).find("span").text(),
+                linkB = +$(b).find("span").text();
+            return linkB - linkA;
+        }));   
+        $links.appendTo($list);
         $("#links .count").text(parseInt($("#links .count").text()) + 1);
-   }
+        if ( $("#links ul > li").size() > 30 ) {
+            $("#links li:last").remove();
+        }
+    }
 }
 onload = function() {
     $.each(['flickr','youtube','facebook','twitter','wordpress','links'], function(i,service){

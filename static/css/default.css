@@ -385,7 +385,7 @@ div#blogs li,
 div#microblogs li{
   position:relative;
 }
-div#microblogs .title{
+div#microblogs li p.title{
   display:none;
 }
 div#blogs .statusfooter,
