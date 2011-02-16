@@ -251,7 +251,7 @@ div#links {
 div#links li {
   padding:10px;
   padding-right:60px;
-  height:18px;
+  height:25px;
   position:relative;
 }
 div#links li a {
@@ -265,14 +265,23 @@ div#links li a {
   overflow:hidden;
   width:100%;
   display:block;
-  font-size:11px;
+  font-size:12px;
+  font-style:italic;
+  color:#888;
+}
+div#links li a.title{
+  font-style:normal;
+  font-weight:700;
+  font-size:16px;
+  color:#000;
+
 }
 div#links .mentions{
   position:absolute;
   display:block;
   right:0px;
   top:0px;
-  line-height:30px;
+  line-height:40px;
   height:100%;
   font-size:20px;
   background:#111;

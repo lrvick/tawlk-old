@@ -54,7 +54,7 @@ function picture_update(msg){
 function links_update(msg){
     if ($("#links").data("paused") === false){
         if (msg['title']){
-            title = "<a href=\"" + msg['href']  + "\">" + msg['title'] + "</a>"
+            title = "<a class=\"title\" href=\"" + msg['href']  + "\">" + msg['title'] + "</a>"
         }
         var newLink = "<li class=\"link\">" + title  + "<a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
         var $list = $("#links ul");
