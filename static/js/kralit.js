@@ -1,7 +1,11 @@
 document.domain = document.domain;
 function urlToHREF(text) {
   var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  return text.replace(exp,"<a href='$1' target=\"_blank\">$1</a>"); 
+  if (text.search('href')==-1){ // ignore text that is probably already html formatted
+    return text.replace(exp,"<a href='$1' target=\"_blank\">$1</a>");
+  } else {
+    return text
+  }
 }
 function processMsg(msg){
   if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':'','buzz':''}) {
@@ -26,7 +30,7 @@ function routeMsg(msg,element){
       if (msg['text']) {
         msgHTML += "<p class=\"text\">" + msg["text"] + "</p>"
       }
-      msgHTML += "<span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" target=\"_blank\" \">" + msg["user"]['name'] + "</a><time>" + msg["date"] + "</time></span></li>"
+      msgHTML += "<span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" target=\"_blank\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time></span></li>"
       $(msgHTML).hide().prependTo("#" + element  + " ul").fadeIn('slow');
       if ( $("#" + element  + " ul > li").size() > 20 ) {
         $("#" + element + " li:last").remove();
