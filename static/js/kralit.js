@@ -53,7 +53,10 @@ function picture_update(msg){
 }
 function links_update(msg){
     if ($("#links").data("paused") === false){
-        var newLink = "<li class=\"link\"><a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
+        if (msg['title']){
+            title = "<a href=\"" + msg['href']  + "\">" + msg['title'] + "</a>"
+        }
+        var newLink = "<li class=\"link\">" + title  + "<a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
         var $list = $("#links ul");
         var $links = $list.children("li").detach();
         newHREF = $(newLink).children('a').attr('href');
