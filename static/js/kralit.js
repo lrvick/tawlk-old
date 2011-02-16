@@ -53,19 +53,22 @@ function picture_update(msg){
 }
 function links_update(msg){
     if ($("#links").data("paused") === false){
+        var msgHTML = "<li class=\"link\">"
         if (msg['title']){
-            title = "<a class=\"title\" href=\"" + msg['href']  + "\">" + msg['title'] + "</a>"
+            msgHTML += "<a target=\"_blank\" class=\"title\" href=\"" + msg['href']  + "\">" + msg['title'] + "</a>"
+        } else {
+            msgHTML += "<a target=\"_blank\" class=\"title\" href=\"" + msg['href']  + "\">No Title</a>"
         }
-        var newLink = "<li class=\"link\">" + title  + "<a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
+        msgHTML += "<a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
         var $list = $("#links ul");
         var $links = $list.children("li").detach();
-        newHREF = $(newLink).children('a').attr('href');
+        newHREF = $(msgHTML).children('a').attr('href');
         existingLink = $links.find("a[href$=" + newHREF + "]");
         if (existingLink.length){
-            newValue = $(newLink).find('.mentions').html()
+            newValue = $(msgHTML).find('.mentions').html()
             existingLink.parent().find('.mentions').html(newValue)
         } else {
-            $links = $links.add(newLink)
+            $links = $links.add(msgHTML)
         }
         $links=$($links.get().sort(function(a, b) {
             var linkA = +$(a).find("span").text(),
