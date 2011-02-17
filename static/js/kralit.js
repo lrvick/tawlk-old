@@ -57,20 +57,20 @@ function picture_update(msg){
 }
 function links_update(msg){
     if ($("#links").data("paused") === false){
-        var msgHTML = "<li class=\"link\">"
         if (msg['title']){
-            msgHTML += "<a target=\"_blank\" class=\"title\" href=\"" + msg['href']  + "\">" + msg['title'] + "</a>"
+            title = msg['title']
         } else {
-            msgHTML += "<a target=\"_blank\" class=\"title\" href=\"" + msg['href']  + "\">No Title</a>"
+            title = 'No Title'
         }
-        msgHTML += "<a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
+        var msgHTML = "<li class=\"link\"><a target=\"_blank\" class=\"title\" href=\"" + msg['href']  + "\">" + title  + "</a><a href=\"" + msg['href'] + "\" target=\"_blank\" \">" + msg['href']  + "</a><span class=\"mentions\">" + msg['count'] + "</span></a></li>"
         var $list = $("#links ul");
         var $links = $list.children("li").detach();
         newHREF = $(msgHTML).children('a').attr('href');
         existingLink = $links.find("a[href$=" + newHREF + "]");
         if (existingLink.length){
             newValue = $(msgHTML).find('.mentions').html()
-            existingLink.parent().find('.mentions').html(newValue)
+            existingLink.parent().html(newValue)
+            //existingLink.parent().find('.title').html(title)
         } else {
             $links = $links.add(msgHTML)
         }
@@ -95,6 +95,39 @@ onload = function() {
         });
       });
     });
+    $.fn.cuteTime.settings = {
+        refresh: -1,                    
+        time_ranges: [
+            {bound: Number.NEGATIVE_INFINITY,
+                    cuteness: 'just now',           unit_size: 0},
+            {bound: 0, 
+                    cuteness: 'just now',           unit_size: 0},
+            {bound: 20 * 1000, 
+                    cuteness: 'a few seconds ago',  unit_size: 0},
+            {bound: 60 * 1000, 
+                    cuteness: 'a minute ago',       unit_size: 0},
+            {bound: 60 * 1000 * 2, 
+                    cuteness: ' minutes ago',       unit_size: 60 * 1000},
+            {bound: 60 * 1000 * 60, 
+                    cuteness: 'an hour ago',        unit_size: 0},
+            {bound: 60 * 1000 * 60 * 2, 
+                    cuteness: ' hours ago',         unit_size: 60 * 1000 * 60},
+            {bound: 60 * 1000 * 60 * 24, 
+                    cuteness: 'yesterday',          unit_size: 0},
+            {bound: 60 * 1000 * 60 * 24 * 2, 
+                    cuteness: ' days ago',          unit_size: 60 * 1000 * 60 * 24},
+            {bound: 60 * 1000 * 60 * 24 * 30,   
+                    cuteness: 'last month',         unit_size: 0},
+            {bound: 60 * 1000 * 60 * 24 * 30 * 2, 
+                    cuteness: ' months ago',        unit_size: 60 * 1000 * 60 * 24 * 30},
+            {bound: 60 * 1000 * 60 * 24 * 30 * 12, 
+                    cuteness: 'last year',          unit_size: 0},
+            {bound: 60 * 1000 * 60 * 24 * 30 * 12 * 2, 
+                    cuteness: ' years ago',         unit_size: 60 * 1000 * 60 * 24 * 30 * 12},
+            {bound: Number.POSITIVE_INFINITY, 
+                    cuteness: 'a blinkle ago',      unit_size: 0}
+        ]
+    };
     $('time').cuteTime(); 
     $(".container").hover(function(event){
         $.data(this, "paused", event.type === 'mouseenter');
