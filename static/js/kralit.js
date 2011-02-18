@@ -1,4 +1,11 @@
 document.domain = document.domain;
+
+if ($('#grid').length != 0){
+    var mode = 'grid'
+} else {
+    var mode = 'default'
+}
+
 function urlToHREF(text) {
   var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
   if (text.search('href')==-1){ // ignore text that is probably already html formatted
@@ -7,18 +14,33 @@ function urlToHREF(text) {
     return text
   }
 }
+
+function gridMsg(msg){
+    if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':'','buzz':'','youtube':'','flickr':'','wordpress':''}) {
+        n = (Math.ceil(Math.random() * 24) -1 );
+        msgHTML = "<li><div style=\"background:url('"  + msg['thumbnail']  +  "') center\">" + msg["text"] + "</div></li>"
+        $('#grid li').eq(n).fadeOut(1000, function() {
+            $(this).replaceWith(msgHTML);
+        });
+    }
+}
+
 function processMsg(msg){
-  if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':'','buzz':''}) {
-    routeMsg(msg,'microblogs');
-  } else if (msg['service'] in {'youtube':''}) {
-    video_update(msg);
-  } else if (msg['service'] in {'flickr':''}) {
-    picture_update(msg);
-  } else if (msg['service'] in {'wordpress':''}) {
-    routeMsg(msg,'blogs');
-  } else if (msg['service'] in {'links':''}) {
-    links_update(msg);
-  }
+    if ($('#grid').length == 0){ // No grid element. Assume we are in windowd mode and divide things up
+        if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':'','buzz':''}) {
+            routeMsg(msg,'microblogs');
+        } else if (msg['service'] in {'youtube':''}) {
+            video_update(msg);
+        } else if (msg['service'] in {'flickr':''}) {
+            picture_update(msg);
+        } else if (msg['service'] in {'wordpress':''}) {
+            routeMsg(msg,'blogs');
+        } else if (msg['service'] in {'links':''}) {
+            links_update(msg);
+        }
+    } else { // Yay! We found a grid element. We are in grid mode, so use gridMsg.
+        gridMsg(msg);
+    }
 }
 function routeMsg(msg,element){
     msg['text'] = urlToHREF(msg['text']);
@@ -158,6 +180,7 @@ onload = function() {
             processMsg(msg);
         };
     };
+    console.log('query');
     if (query != 'default'){
         kral_listen();
     }
