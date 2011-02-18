@@ -603,16 +603,33 @@ ul#grid li{
     float:left;
     border-radius:0px;
     -webkit-border-radius:0px;
+    background:#000;
 }
 ul#grid li div {
     position:absolute;
-    top:0px;
-    bottom:-1px;
-    left:0px;
-    right:0;
-    box-shadow:inset 0 0 1px #000000; 
-    -webkit-box-shadow:inset 0 0 1px #000000; 
-    -moz-box-shadow:inset 0 0 1px #000000;
+    top:2px;
+    bottom:2px;
+    left:2px;
+    right:2px;
+    box-shadow:inset 0 0 1px #666; 
+    -webkit-box-shadow:inset 0 0 1px #666; 
+    -moz-box-shadow:inset 0 0 1px #666;
+    background-color:#444;
+    padding:10px;
+    font-size:18px;
+    line-height:22px;
+}
+ul#grid .avatar{
+    width:48px;
+    height:48px;
+    float:left;
+    margin-right:10px;
+}
+ul#grid li div a {
+    color:#777;
+}
+ul#grid li div p {
+    max-height:100%;
 }
 
 *::-webkit-scrollbar {

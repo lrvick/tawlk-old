@@ -17,9 +17,14 @@ function urlToHREF(text) {
 
 function gridMsg(msg){
     if (msg['service'] in {'facebook':'', 'twitter':'', 'identica':'','buzz':'','youtube':'','flickr':'','wordpress':''}) {
-        n = (Math.ceil(Math.random() * 24) -1 );
-        msgHTML = "<li><div style=\"background:url('"  + msg['thumbnail']  +  "') center\">" + msg["text"] + "</div></li>"
-        $('#grid li').eq(n).fadeOut(1000, function() {
+        n = (Math.ceil(Math.random() * 25) -1 );
+        msg['text'] = urlToHREF(msg['text']);
+        msgHTML = "<div style=\"background-image:url('"  + msg['thumbnail']  +  "') center\">"
+        if (msg['user']['avatar']){
+            msgHTML += "<img class=\"avatar\" src=\"" + msg['user']['avatar'] + "\"/>"
+        }
+        msgHTML += "<p>" + msg["text"] + "</p></div>"
+        $('#grid li').eq(n).find('div').fadeOut(1000, function() {
             $(this).replaceWith(msgHTML);
         });
     }
