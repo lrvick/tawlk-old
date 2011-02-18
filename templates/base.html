@@ -1,0 +1,31 @@
+<!DOCTYPE HTML> 
+<html> 
+  <head> 
+    <title>KRAL IT</title> 
+    <link href='http://fonts.googleapis.com/css?family=Geo' rel='stylesheet' type='text/css'> 
+    <link href="/static/css/default.css" rel="stylesheet" type="text/css">
+    <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/js/CuteTime/js/jquery.cuteTime.min.js" type="text/javascript"></script>
+    <script>var query = "{{ query }}";</script>
+    <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/Orbited.js"></script>
+    <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/protocols/stomp/stomp.js"></script>
+    <script src="static/js/kralit.js"></script>
+  </head> 
+  <body class={{ query }}> 
+    <div class="Twrapper"> 
+      <header> 
+        <h1><a href="http:/kral.it/">KRAL IT --></a></h1>
+        <form action="/" method="POST"><input name="query" maxlength="25" type="text"/>{% csrf_token %}</form>
+        <nav>
+        {% for query_us,query in all_queries.items %}
+            <a href="/{{ query_us }}">{{ query }}</a>
+        {% endfor %}
+        </nav>
+      </header> 
+    </div>
+    <div class="Bwrapper"> 
+    {% block content %}{% endblock %} 
+    </div>
+  </body> 
+</html> 

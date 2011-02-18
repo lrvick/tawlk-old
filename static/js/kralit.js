@@ -69,7 +69,7 @@ function links_update(msg){
         existingLink = $links.find("a[href$=" + newHREF + "]");
         if (existingLink.length){
             newValue = $(msgHTML).find('.mentions').html()
-            existingLink.parent().html(newValue)
+            existingLink.parent().find('.mentions').html(newValue)
             //existingLink.parent().find('.title').html(title)
         } else {
             $links = $links.add(msgHTML)
