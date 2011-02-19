@@ -115,6 +115,11 @@ function links_update(msg){
 }
 $.fx.off = true;
 onload = function() {
+    if (query == 'default'){
+        query = location.hash.replace(/^#+/, '');
+    } else {
+        window.location.hash = query;
+    }
     $.each(['flickr','youtube','facebook','twitter','wordpress','links','buzz'], function(i,service){
       $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
         $.each(data, function(i,msg){
@@ -185,7 +190,6 @@ onload = function() {
             processMsg(msg);
         };
     };
-    console.log('query');
     if (query != 'default'){
         kral_listen();
     }
