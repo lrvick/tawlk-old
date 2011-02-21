@@ -1,11 +1,3 @@
-document.domain = document.domain;
-
-if ($('#grid').length != 0){
-    var mode = 'grid'
-} else {
-    var mode = 'default'
-}
-
 function urlToHREF(text) {
   var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
   if (text.search('href')==-1){ // ignore text that is probably already html formatted
@@ -47,6 +39,7 @@ function processMsg(msg){
         gridMsg(msg);
     }
 }
+
 function routeMsg(msg,element){
     msg['text'] = urlToHREF(msg['text']);
   if ($("#"+ element  +"").data("paused") === false){
@@ -66,22 +59,31 @@ function routeMsg(msg,element){
     $("#" + element  + " li time").cuteTime(); 
   }
 }
+
 function video_update(msg){
   if ($("#videos").data("paused") === false){
     var vn = Math.floor(Math.random()*2);
     $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center no-repeat\"><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\" \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
+      if ( $("#videos ul > li").size() > 30 ) {
+        $("#videos li:last").remove();
+      }
     $("#videos ul ul:eq(" + vn + ") li:last").remove();
     $("#videos .count").text(parseInt($("#videos .count").text()) + 1);
   }
 }
+
 function picture_update(msg){
   if ($("#pictures").data("paused") === false){
     var n = Math.floor(Math.random()*3);
     $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#pictures ul ul:eq(" + n +")").fadeIn('slow');
+    if ( $("#pictures ul > li").size() > 30 ) {
+        $("#pictures li:last").remove();
+    }
     $("#pictures ul ul:eq(" + n + ") li:last").remove();
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }
+
 function links_update(msg){
     if ($("#links").data("paused") === false){
         if (msg['title']){
@@ -97,7 +99,6 @@ function links_update(msg){
         if (existingLink.length){
             newValue = $(msgHTML).find('.mentions').html()
             existingLink.parent().find('.mentions').html(newValue)
-            //existingLink.parent().find('.title').html(title)
         } else {
             $links = $links.add(msgHTML)
         }
@@ -113,25 +114,53 @@ function links_update(msg){
         }
     }
 }
-$.fx.off = true;
-onload = function() {
-    if (query == 'default'){
-        query = location.hash.replace(/^#+/, '');
-    } else {
-        window.location.hash = query;
-    }
+    
+function runKralit(query){
     $.each(['flickr','youtube','facebook','twitter','wordpress','links','buzz'], function(i,service){
-      $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
-        $.each(data, function(i,msg){
-          processMsg(msg);
+        $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
+            $.each(data, function(i,msg){
+                processMsg(msg);
+            });
         });
-      });
     });
+    TCPSocket = Orbited.TCPSocket;
+    stomp = new STOMPClient();
+    stomp.connect('localhost', 61613,"guest","guest");
+    stomp.onclose = function(c) {
+            console.log("Lost connection, Code:" + c);
+    };
+    stomp.onerror = function(error) {
+        console.log("Error:" + error);
+    };
+    stomp.onerrorframe = function(frame) {
+        console.log("onerrorframe: " + frame.body);
+        stomp.reset();
+        stomp.subscribe("/exchange/" + query);
+    };
+    stomp.onconnectedframe = function(){
+        stomp.subscribe("/exchange/" + query);
+        console.log('Connected');
+    };
+    stomp.onmessageframe = function(frame){
+        msg = JSON.parse(frame.body);
+        $.fx.off = false;
+        processMsg(msg);
+    };
+};
+
+$(document).ready(function() {
+    document.domain = document.domain;
+    if ($('#grid').length != 0){
+        var mode = 'grid'
+    } else {
+        var mode = 'default'
+    }
+    $.fx.off = true;
     $.fn.cuteTime.settings = {
         refresh: -1,                    
         time_ranges: [
             {bound: Number.NEGATIVE_INFINITY,
-                    cuteness: 'just now',           unit_size: 0},
+                cuteness: 'just now',           unit_size: 0},
             {bound: 0, 
                     cuteness: 'just now',           unit_size: 0},
             {bound: 20 * 1000, 
@@ -160,37 +189,29 @@ onload = function() {
                     cuteness: 'a blinkle ago',      unit_size: 0}
         ]
     };
-    $('time').cuteTime(); 
+    $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+            event.preventDefault();
+            var stomp;
+            if (stomp != null){
+                stomp.disconnect();
+            };
+            $.fx.off = true;
+            query = $("#search input").attr('value');
+            runKralit(query);
+            window.location.hash = query;
+            $('.container ul li').empty();
+            return false;
+        }
+    });
     $(".container").hover(function(event){
         $.data(this, "paused", event.type === 'mouseenter');
     });
     $("div").data("paused",false);
-    function kral_listen(){
-        TCPSocket = Orbited.TCPSocket;
-        stomp = new STOMPClient();
-        stomp.connect('localhost', 61613,"guest","guest");
-        stomp.onclose = function(c) {
-            console.log("Lost connection, Code:" + c);
-        };
-        stomp.onerror = function(error) {
-            console.log("Error:" + error);
-        };
-        stomp.onerrorframe = function(frame) {
-            console.log("onerrorframe: " + frame.body);
-            stomp.reset();
-            stomp.subscribe("/exchange/" + query);
-        };
-        stomp.onconnectedframe = function(){
-            stomp.subscribe("/exchange/" + query);
-            console.log('Connected');
-        };
-        stomp.onmessageframe = function(frame){
-            msg = JSON.parse(frame.body);
-            $.fx.off = false;
-            processMsg(msg);
-        };
-    };
-    if (query != 'default'){
-        kral_listen();
+    if (query == 'default'){
+        query = location.hash.replace(/^#+/, '');
+    } else {
+        window.location.hash = query;
+        runKralit(query);
     }
-};
+});
