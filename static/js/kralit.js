@@ -116,6 +116,9 @@ function links_update(msg){
 }
     
 function runKralit(query){
+    $.fx.off = true;
+    $('.container li').empty();
+    $(".count").text('0');
     $.each(['flickr','youtube','facebook','twitter','wordpress','links','buzz'], function(i,service){
         $.getJSON("/feeds/" + service +"/" + query + ".json", function(data) {
             $.each(data, function(i,msg){
@@ -139,7 +142,7 @@ function runKralit(query){
     };
     stomp.onconnectedframe = function(){
         stomp.subscribe("/exchange/" + query);
-        console.log('Connected');
+        console.log("Connected to exhange \"/" + query  + "\"");
     };
     stomp.onmessageframe = function(frame){
         msg = JSON.parse(frame.body);
@@ -189,18 +192,25 @@ $(document).ready(function() {
                     cuteness: 'a blinkle ago',      unit_size: 0}
         ]
     };
+    $('nav a').click(function(){
+        if (query != 'default'){
+            stomp.disconnect();
+            console.log("Disconnected from exhange \"/" + query  + "\"");
+        };
+        query = $(this).attr('href').replace(/^#+/, '')
+        runKralit(query);
+    });
     $(window).keydown(function(event){
         if(event.keyCode == 13) {
             event.preventDefault();
+            $.post("/", $("#search").serialize());  
+            query = $("#search input").attr('value');
+            window.location.hash = query;
             var stomp;
             if (stomp != null){
                 stomp.disconnect();
             };
-            $.fx.off = true;
-            query = $("#search input").attr('value');
             runKralit(query);
-            window.location.hash = query;
-            $('.container ul li').empty();
             return false;
         }
     });
@@ -208,10 +218,9 @@ $(document).ready(function() {
         $.data(this, "paused", event.type === 'mouseenter');
     });
     $("div").data("paused",false);
-    if (query == 'default'){
-        query = location.hash.replace(/^#+/, '');
-    } else {
-        window.location.hash = query;
+    var query;
+    query = location.hash.replace(/^#+/, '');
+    if (query != 'default'){
         runKralit(query);
     }
 });
