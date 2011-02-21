@@ -193,23 +193,23 @@ $(document).ready(function() {
         ]
     };
     $('nav a').click(function(){
+        query = $(this).attr('href').replace(/^#+/, '')
         if (query != 'default'){
             stomp.disconnect();
             console.log("Disconnected from exhange \"/" + query  + "\"");
         };
-        query = $(this).attr('href').replace(/^#+/, '')
         runKralit(query);
     });
     $(window).keydown(function(event){
         if(event.keyCode == 13) {
             event.preventDefault();
             $.post("/", $("#search").serialize());  
-            query = $("#search input").attr('value');
-            window.location.hash = query;
-            var stomp;
-            if (stomp != null){
+            if (query != 'default'){
                 stomp.disconnect();
+                console.log("Disconnected from exhange \"/" + query  + "\"");
             };
+            query = $("#search input").attr('value').replace(/ /g,"_");
+            window.location.hash = query;
             runKralit(query);
             return false;
         }
