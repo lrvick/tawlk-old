@@ -62,24 +62,31 @@ function routeMsg(msg,element){
 
 function video_update(msg){
   if ($("#videos").data("paused") === false){
-    var vn = Math.floor(Math.random()*2);
-    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center no-repeat\"><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\" \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + vn + ")").fadeIn('slow');
-      if ( $("#videos ul > li").size() > 30 ) {
-        $("#videos li:last").remove();
-      }
-    $("#videos ul ul:eq(" + vn + ") li:last").remove();
+    if (window.vn == 0){
+        window.vn++;  
+    } else {
+        window.vn = 0;
+    }
+    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center no-repeat\"><a title=\"" + msg['text']  + "\" href=\"http://youtube.com/watch?v=" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\" \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#videos ul ul:eq(" + window.vn + ")").fadeIn('slow');
+    if ($("#pictures ul ul:eq(" + window.vn + ") li").size > 15 ){
+        $("#pictures ul ul:eq(" + window.vn + ") li:last").remove();
+    }
     $("#videos .count").text(parseInt($("#videos .count").text()) + 1);
   }
 }
 
 function picture_update(msg){
   if ($("#pictures").data("paused") === false){
-    var n = Math.floor(Math.random()*3);
-    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#pictures ul ul:eq(" + n +")").fadeIn('slow');
-    if ( $("#pictures ul > li").size() > 30 ) {
-        $("#pictures li:last").remove();
+    if (window.pn <= 1){
+        window.pn++;  
+    } else {
+        window.pn = 0;
     }
-    $("#pictures ul ul:eq(" + n + ") li:last").remove();
+    console.log(window.vn)
+    $("<li class=\"" + msg["service"] + "\" style=\"background:url('"  + msg['thumbnail']  +  "') center\"><a title=\"" + msg['text']  +"\" href=\"http://www.flickr.com/photos/" + msg['user']['id']  +"/" + msg["id"] + "\" onclick=\"window.open(this.href);return false;\"  \"><span>" + msg['text'] + "</span></a></li>").hide().prependTo("#pictures ul ul:eq(" + window.pn +")").fadeIn('slow');
+    if ($("#pictures ul ul:eq(" + window.pn + ") li").size > 10 ){
+        $("#pictures ul ul:eq(" + window.pn + ") li:last").remove();
+    }
     $("#pictures .count").text(parseInt($("#pictures .count").text()) + 1);
   }
 }

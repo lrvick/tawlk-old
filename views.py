@@ -1,5 +1,6 @@
 from django.http import HttpResponse, Http404
 from django.conf import settings
+from django.middleware.csrf import get_token
 from django.shortcuts import render_to_response
 from kral.views import *
 
