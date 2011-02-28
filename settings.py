@@ -58,28 +58,32 @@ INSTALLED_APPS = (
 )
 
 # What Kral plugins to enable
-KRAL_PLUGINS = ['Buzz', 'Identica', 'Twitter', 'Facebook', 'Youtube']
+KRAL_PLUGINS = ['Buzz', 'Identica', 'Twitter', 'Facebook', 'Youtube','Flickr']
+
 # Minimum amount of time queries will get before rotation happens
 KRAL_WAIT = 5
+
 # Maximum number of queries to have running simultaneously
 KRAL_SLOTS = 2
+
 # Default queries to search
 KRAL_QUERIES = ['iphone','apple','google','android','tech']
 
-#Celery settings
-CELERY_RESULT_BACKEND = "cache"
-CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-
-#AMPQ Server Info
+# AMPQ Server Info
 BROKER_HOST = "127.0.0.1"
 BROKER_PORT = 5672
 BROKER_VHOST = "/"
 BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"
 
+# Celery settings
+CELERY_RESULT_BACKEND = "cache"
+CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+
 #CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
 CELERYBEAT_SCHEDULER="celery.beat.PersistentScheduler"
 
+# Orbited Settings
 ORBITED_SERVER = "localhost"
 ORBITED_PORT = "9000"
 ORBITED_STOMP_PORT = "61613"

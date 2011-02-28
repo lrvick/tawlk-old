@@ -52,7 +52,7 @@ function routeMsg(msg,element){
       }
       msgHTML += "<span class=\"statusfooter\">by <a href=\"" + msg["user"]['profile'] + "\" target=\"_blank\" \">" + msg["user"]['name'] + "</a> <time>" + msg["date"] + "</time></span></li>"
       $(msgHTML).hide().prependTo("#" + element  + " ul").fadeIn('slow');
-      if ( $("#" + element  + " ul > li").size() > 20 ) {
+      if ( $("#" + element  + " ul > li").size() > 30 ) {
         $("#" + element + " li:last").remove();
       }
       $("#" + element  + " .count").text(parseInt($("#" + element  + " .count").text()) + 1);
