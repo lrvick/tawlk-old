@@ -77,8 +77,17 @@ BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"
 
 # Celery settings
-CELERY_RESULT_BACKEND = "cache"
-CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+
+# Memcached backend
+#CELERY_RESULT_BACKEND = "cache"
+#CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+
+# Redis backend
+CELERY_RESULT_BACKEND = "redis"
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 3
+REDIS_CONNECT_RETRY = True
 
 #CELERYBEAT_SCHEDULER="djcelery.schedulers.DatabaseScheduler"
 CELERYBEAT_SCHEDULER="celery.beat.PersistentScheduler"
