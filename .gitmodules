@@ -1,9 +1,12 @@
 [submodule "kral"]
 	path = kral
-	url = git://github.com/UdderWeb/kral.git
+	url = git://github.com/lrvick/kral.git
 [submodule "filr"]
 	path = filr
-	url = git://github.com/UdderWeb/filr.git
+	url = git://github.com/lrvick/filr.git
+[submodule "synt"]
+	path = synt
+	url = git://github.com/lrvick/synt.git
 [submodule "static/js/CuteTime"]
 	path = static/js/CuteTime
 	url = git://github.com/theproductguy/CuteTime.git
