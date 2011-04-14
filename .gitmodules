@@ -4,6 +4,9 @@
 [submodule "filr"]
 	path = filr
 	url = git://github.com/lrvick/filr.git
+[submodule "ewrl"]
+	path = ewrl
+	url = git://github.com/lrvick/ewrl.git
 [submodule "synt"]
 	path = synt
 	url = git://github.com/lrvick/synt.git

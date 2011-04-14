@@ -26,6 +26,8 @@ TIME_ZONE = 'America/New_York'
 
 LANGUAGE_CODE = 'en-us'
 
+SITE_NAME = 'KRAL'
+
 SITE_ID = 1
 
 USE_I18N = True

@@ -21,6 +21,7 @@ def index(request,mode='default',query='default'):
     else:
         template = 'index.html'
     return render_to_response(template, {
+        "site_name": settings.SITE_NAME,
         "orbited_server": settings.ORBITED_SERVER,
         "orbited_port": settings.ORBITED_PORT,
         "orbited_stomp_port": settings.ORBITED_STOMP_PORT,
