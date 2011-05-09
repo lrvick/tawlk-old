@@ -10,6 +10,9 @@
 [submodule "synt"]
 	path = synt
 	url = git://github.com/lrvick/synt.git
+[submodule "sher"]
+	path = sher
+	url = git://github.com/tsoporan/sher.git
 [submodule "static/js/CuteTime"]
 	path = static/js/CuteTime
 	url = git://github.com/theproductguy/CuteTime.git
