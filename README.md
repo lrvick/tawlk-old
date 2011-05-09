@@ -24,7 +24,7 @@
   * Ability to watch/store public mentions of a given keyword across many 
     major social media sites.
   * Format all data into the Unified Social Media Format (USMF) 
-    - <https://github.com/lrvick/tawlk/wiki/Unified-Social-Media-Format-%28USMF%29>)
+    - <https://github.com/lrvick/tawlk/wiki/Unified-Social-Media-Format-%28USMF%29>
   * Other stuff!
 
 ## Usage / Installation ##
@@ -69,4 +69,4 @@
 
   Also, for more insight into design decisions and the related material we 
   are reading as well as competing solutions, take a look at our 
-  [[Research Resources|https://github.com/lrvick/tawlk/wiki/Research-resources]]
+  Research Resources - <https://github.com/lrvick/tawlk/wiki/Research-resources>
