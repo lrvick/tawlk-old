@@ -13,6 +13,9 @@
 [submodule "sher"]
 	path = sher
 	url = git://github.com/tsoporan/sher.git
+[submodule "docs"]
+	path = docs
+	url = git://github.com/lrvick/tawlk.wiki.git
 [submodule "static/js/CuteTime"]
 	path = static/js/CuteTime
 	url = git://github.com/theproductguy/CuteTime.git
