@@ -4,7 +4,10 @@ djcelery.setup_loader()
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
+sys.path.append(os.path.join(PROJECT_PATH, 'apps'))
+
 DEBUG = False
+
 TEMPLATE_DEBUG = False
 
 ADMINS = (

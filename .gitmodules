@@ -1,17 +1,17 @@
 [submodule "kral"]
-	path = kral
+	path = apps/kral
 	url = git://github.com/lrvick/kral.git
 [submodule "filr"]
-	path = filr
+	path = apps/filr
 	url = git://github.com/lrvick/filr.git
 [submodule "ewrl"]
-	path = ewrl
+	path = apps/ewrl
 	url = git://github.com/lrvick/ewrl.git
 [submodule "synt"]
-	path = synt
+	path = apps/synt
 	url = git://github.com/lrvick/synt.git
 [submodule "sher"]
-	path = sher
+	path = apps/sher
 	url = git://github.com/tsoporan/sher.git
 [submodule "docs"]
 	path = docs
