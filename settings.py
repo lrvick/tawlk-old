@@ -1,4 +1,6 @@
-import djcelery,os
+import djcelery
+import os
+import sys
 
 djcelery.setup_loader()
 
@@ -63,7 +65,7 @@ INSTALLED_APPS = (
 )
 
 # What Kral plugins to enable
-KRAL_PLUGINS = ['Buzz', 'Identica', 'Twitter', 'Facebook', 'Youtube','Flickr']
+KRAL_PLUGINS = ['Buzz', 'Twitter', 'Facebook', 'Youtube','Flickr']
 
 # Minimum amount of time queries will get before rotation happens
 KRAL_WAIT = 5
@@ -112,7 +114,10 @@ ORBITED_STOMP_PORT = "61613"
 #}
 
 #DJANGO 1.2
-CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+
+#simple backend
+CARROT_BACKEND = "django"
 
 #Load installation specific settings/passwords from external file with restrictive permissions
 execfile(os.path.join(PROJECT_PATH,'.private-settings'))

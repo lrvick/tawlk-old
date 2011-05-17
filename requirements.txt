@@ -6,3 +6,5 @@ egenix-mx-base
 orbited
 setproctitle
 kombu
+redis
+eventlet
