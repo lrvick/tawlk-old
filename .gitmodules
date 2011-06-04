@@ -16,6 +16,9 @@
 [submodule "docs"]
 	path = docs
 	url = git://github.com/lrvick/tawlk.wiki.git
+[submodule "static/js/hyve"]
+	path = static/js/hyve
+	url = git://github.com/lrvick/hyve.git
 [submodule "static/js/CuteTime"]
 	path = static/js/CuteTime
 	url = git://github.com/theproductguy/CuteTime.git
