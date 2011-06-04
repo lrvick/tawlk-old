@@ -8,3 +8,5 @@ setproctitle
 kombu
 redis
 eventlet
+python-dateutil
+pyparsing
