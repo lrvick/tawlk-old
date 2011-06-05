@@ -7,12 +7,10 @@
     <link href="/static/img/favicon.ico" rel="icon" type="image/x-icon" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
     <script src="/static/js/CuteTime/js/jquery.cuteTime.min.js" type="text/javascript"></script>
-    <script>var query = "{{ query }}";</script>
-    <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/Orbited.js"></script>
-    <script src="http://{{ orbited_server }}:{{ orbited_port }}/static/protocols/stomp/stomp.js"></script>
-    <script src="/static/js/kralit.js"></script>
+    <script src="/static/js/hyve/hyve.js" type="text/javascript"></script>
+    <script src="/static/js/tawlk.js" type="text/javascript"></script>
   </head> 
-  <body class={{ query }}> 
+  <body> 
     <div class="Twrapper"> 
       <header> 
         <h1><a href="/">{{ site_name }} --></a></h1>
@@ -31,4 +29,4 @@
     {% block content %}{% endblock %} 
     </div>
   </body> 
-</html> 
+</html>
